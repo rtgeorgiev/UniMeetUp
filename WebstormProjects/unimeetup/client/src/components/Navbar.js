@@ -2,8 +2,12 @@ import mainLogo from "../pictures/mainlogo.png";
 import mainLogo1 from "../pictures/mainlogo1.png"
 
 
-const Navbar = () => {
-    const minimal = true
+const Navbar = ({authToken, minimal, setShowModal, showModal, setIsSignUp}) => {
+
+    const handleClick = () => {
+        setShowModal(true);
+        setIsSignUp(false);
+    };
 
     return (
         <nav>
@@ -14,6 +18,15 @@ const Navbar = () => {
                     alt="logo"
                 />
             </div>
+            {!authToken && !minimal && (
+                <button
+                    className="nav-button"
+                    onClick={handleClick}
+                    disabled={showModal}
+                >
+                    Log in
+                </button>
+            )}
         </nav>
     );
 };
