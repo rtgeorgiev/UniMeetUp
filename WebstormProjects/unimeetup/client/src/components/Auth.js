@@ -1,15 +1,15 @@
-import { useState } from 'react'
-import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
-import { useCookies } from 'react-cookie'
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 
-const Auth = ({ setShowModal,  isSignUp }) => {
+const Auth = ({setShowModal,  isSignUp, errorMessage}) => {
     const [email, setEmail] = useState(null)
     const [password, setPassword] = useState(null)
     const [confirmPassword, setConfirmPassword] = useState(null)
     const [error, setError] = useState(null)
-    const [ cookies, setCookie, removeCookie] = useCookies(null)
+    const [setCookie] = useCookies(null)
 
     let navigate = useNavigate()
 
@@ -23,17 +23,17 @@ const Auth = ({ setShowModal,  isSignUp }) => {
         e.preventDefault()
         try {
             if (isSignUp && (password !== confirmPassword)) {
-                setError('Passwords do not match!')
+                setError("Passwords do not match!")
                 return
             }
-            const response = await axios.post(`http://localhost:8000/${isSignUp ? 'signup' : 'login'}`, { email, password })
+            const response = await axios.post(`http://localhost:8000/${isSignUp ? "signup" : "login"}`, { email, password })
 
-            setCookie('AuthToken', response.data.token)
-            setCookie('UserId', response.data.userId)
+            setCookie("AuthToken", response.data.token)
+            setCookie("UserId", response.data.userId)
 
             const success = response.status === 201
-            if (success && isSignUp) navigate ('/signup')
-            if (success && !isSignUp) navigate ('/dashboard')
+            if (success && isSignUp) navigate ("/signup")
+            if (success && !isSignUp) navigate ("/dashboard")
 
             window.location.reload()
 
@@ -46,7 +46,7 @@ const Auth = ({ setShowModal,  isSignUp }) => {
         <div className="auth">
             <div className="close-icon" onClick={handleClick}>ⓧ</div>
 
-            <h2>{isSignUp ? 'REGISTER': 'LOG IN'}</h2>
+            <h2>{isSignUp ? "REGISTER": "LOG IN"}</h2>
             <p>By registering, you agree to our terms. Learn how we process your data in our Privacy Policy and Cookie Policy.</p>
             <form onSubmit={handleSubmit}>
                 <input

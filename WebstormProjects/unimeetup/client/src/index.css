@@ -12,12 +12,12 @@ h2 {
   font-family: 'Times New Roman', sans-serif;
 }
 
-.primary-title {
+.main-title {
   font-size: 90px;
   color: rgb(255, 255, 255);
 }
 
-.primary-button {
+.main-button {
   color: rgb(255,255,255);
   text-transform: uppercase;
   font-size: 15px;
@@ -27,7 +27,7 @@ h2 {
   border: none;
 }
 
-.primary-button:hover {
+.main-button:hover {
   background: darkgreen;
 }
 
@@ -57,7 +57,7 @@ nav {
   justify-content: space-between;
 }
 
-nav .nav-button {
+nav .navbar-button {
   color: forestgreen;
   background-color: rgb(255, 255, 255);
   font-size: 20px;
@@ -67,7 +67,7 @@ nav .nav-button {
   margin: 10px;
 }
 
-nav .nav-button:disabled {
+nav .navbar-button:disabled {
   background-color: rgb(181, 180, 180);
   color: lightgreen;
 }
@@ -83,7 +83,7 @@ nav .logo-container .logo {
 
 /*-------- Landing page --------*/
 
-.overlay {
+.cover {
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -203,7 +203,76 @@ nav .logo-container .logo {
   background-color: lightgreen;
 }
 
-.signup form .photo-container img {
+.signup form .pic-container img {
   width: 100%
 }
 
+/*-------- Dashboard --------*/
+.dash {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dash .swipe-container {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.swipe {
+  position: absolute;
+}
+
+.dash .card-container {
+  width: 400px;
+  height: 650px;
+}
+
+.card {
+  width: 400px;
+  height: 650px;
+  border-radius: 30px;
+  background-size: cover;
+  background-position: center;
+}
+
+.card h3 {
+  margin-top: 0;
+  position: absolute;
+  bottom: 80px;
+  padding: 10px;
+  color: white;
+}
+
+.card h4 {
+  margin-top: 0;
+  position: absolute;
+  bottom: 55px;
+  padding: 10px;
+  color: white;
+}
+
+.card h5 {
+  margin-top: 0;
+  position: absolute;
+  bottom: 30px;
+  padding: 10px;
+  color: white;
+}
+
+.card p {
+  margin-top: 0;
+  position: absolute;
+  bottom: 5px;
+  padding: 10px;
+  color: white;
+}
+
+.dash .swipe-info {
+  position: absolute;
+  bottom: 0;
+  padding: 10px;
+}

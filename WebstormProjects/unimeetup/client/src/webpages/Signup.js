@@ -1,10 +1,13 @@
-import Navbar from '../components/Navbar'
-import {useState} from 'react'
-import {useNavigate} from 'react-router-dom'
+import Navbar from "../components/Navbar";
+import {useState} from "react";
+import {useCookies} from "react-cookie";
+import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
 const Signup = () => {
+    const [cookies] = useCookies(null)
     const [formData, setFormData] = useState({
-        user_id: "",
+        user_id: cookies.UserId,
         first_name: "",
         dob_day: "",
         dob_month: "",
@@ -24,11 +27,21 @@ const Signup = () => {
     let navigate = useNavigate()
 
     const handleSubmit = async (e) => {
-        console.log('submitted')
+        console.log("submitted")
+        e.preventDefault()
+        try {
+            const response = await axios.put("http://localhost:8000/user", {formData})
+            console.log(response)
+            const success = response.status === 200
+            if (success) navigate("/dashboard")
+        } catch (err) {
+            console.log(err)
+        }
+
     }
 
     const handleChange = (e) => {
-        console.log('e', e)
+        console.log("e", e)
         const value = e.target.type === "checkbox" ? e.target.checked : e.target.value
         const name = e.target.name
 
@@ -55,7 +68,7 @@ const Signup = () => {
                         <label htmlFor="first_name">First Name</label>
                         <input
                             id="first_name"
-                            type='text'
+                            type="text"
                             name="first_name"
                             placeholder="First Name"
                             required={true}
@@ -66,7 +79,7 @@ const Signup = () => {
                         <label htmlFor="university">University</label>
                         <input
                             id="university"
-                            type='text'
+                            type="text"
                             name="university"
                             placeholder="University"
                             required={true}
@@ -77,7 +90,7 @@ const Signup = () => {
                         <label htmlFor="year_of_study">Year of Study</label>
                         <input
                             id="year_of_study"
-                            type='text'
+                            type="text"
                             name="year_of_study"
                             placeholder="Year of Study"
                             required={true}
@@ -88,7 +101,7 @@ const Signup = () => {
                         <label htmlFor="course">Course</label>
                         <input
                             id="course"
-                            type='text'
+                            type="text"
                             name="course"
                             placeholder="Course"
                             required={true}
@@ -227,7 +240,7 @@ const Signup = () => {
                             onChange={handleChange}
                             required={true}
                         />
-                        <div className="photo-container">
+                        <div className="pic-container">
                             {formData.url && <img src={formData.url} alt="profile pic preview"/>}
                         </div>
 
