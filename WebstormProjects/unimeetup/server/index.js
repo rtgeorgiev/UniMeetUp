@@ -1,10 +1,10 @@
 const PORT = 8000
-const express = require('express')
 const {MongoClient} = require('mongodb')
+const express = require('express')
 const {v4: uuidv4} = require('uuid')
 const jwt = require('jsonwebtoken')
-const cors = require('cors')
 const bcrypt = require('bcrypt')
+const cors = require('cors')
 require('dotenv').config()
 
 const uri = 'mongodb+srv://rtgeorgiev:mypassword@Cluster0.hkj2v1s.mongodb.net/?retryWrites=true&w=majority'
@@ -15,7 +15,7 @@ app.use(express.json())
 
 // Default
 app.get('/', (req, res) => {
-    res.json('Hello to my app')
+    res.json('Server running')
 })
 
 // Sign up to the Database
@@ -88,3 +88,45 @@ app.post('/login', async (req, res) => {
         await client.close()
     }
 })
+
+// Get individual user
+app.get('/user', async (req, res) => {
+    const client = new MongoClient(uri)
+    const userId = req.query.userId
+
+    try {
+        await client.connect()
+        const database = client.db('app-data')
+        const users = database.collection('users')
+
+        const query = {user_id: userId}
+        const user = await users.findOne(query)
+        res.send(user)
+
+    } finally {
+        await client.close()
+    }
+})
+
+// Update User with a match
+app.put('/addmatch', async (req, res) => {
+    const client = new MongoClient(uri)
+    const {userId, matchedUserId} = req.body
+
+    try {
+        await client.connect()
+        const database = client.db('app-data')
+        const users = database.collection('users')
+
+        const query = {user_id: userId}
+        const updateDocument = {
+            $push: {matches: {user_id: matchedUserId}}
+        }
+        const user = await users.updateOne(query, updateDocument)
+        res.send(user)
+    } finally {
+        await client.close()
+    }
+});
+
+app.listen(PORT, () => console.log('server running on PORT ' + PORT))
