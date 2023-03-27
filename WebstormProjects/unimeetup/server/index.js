@@ -12,6 +12,7 @@ const clienturl = process.env.CLIENT_URL
 const accessKey = process.env.ACCESS_KEY_ID
 const secretKey = process.env.SECRET_ACCESS_KEY
 const region = process.env.REGION
+const myemail = process.env.EMAIL
 
 const sendVerificationEmail = async (email, verificationToken) => {
     const params = {
@@ -28,8 +29,8 @@ const sendVerificationEmail = async (email, verificationToken) => {
                 Data: 'Verify your email'
             }
         },
-        Source: 'rgeorgiev001@gmail.com',
-        ReplyToAddresses: ['rgeorgiev001@gmail.com']
+        Source: myemail,
+        ReplyToAddresses: [myemail]
     }
 
     try {
