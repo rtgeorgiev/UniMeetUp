@@ -9,6 +9,10 @@ const express = require('express')
 const cors = require('cors')
 const MongoClient = require('mongodb').MongoClient
 const clienturl = process.env.CLIENT_URL
+const accessKey = process.env.ACCESS_KEY_ID
+const secretKey = process.env.SECRET_ACCESS_KEY
+const region = process.env.REGION
+
 const sendVerificationEmail = async (email, verificationToken) => {
     const params = {
         Destination: {
@@ -43,10 +47,10 @@ app.use(express.json())
 // Configure AWS SDK
 AWS.config.update({
     apiVersion: '2010-12-01',
-    accessKeyId: "AKIASJSQSWYMK4OIB7MY",
-    secretAccessKey: "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",
+    accessKeyId: accessKey,
+    secretAccessKey: secretKey,
     sslEnabled: true,
-    region: "eu-north-1"
+    region: region
 })
 const ses = new AWS.SES({ apiVersion: '2010-12-01' })
 
