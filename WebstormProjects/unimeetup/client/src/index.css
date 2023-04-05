@@ -12,12 +12,12 @@ h2 {
   font-family: 'Times New Roman', sans-serif;
 }
 
-.main-title {
+.primary-title {
   font-size: 90px;
   color: rgb(255, 255, 255);
 }
 
-.main-button {
+.primary-button {
   color: rgb(255,255,255);
   text-transform: uppercase;
   font-size: 15px;
@@ -27,7 +27,7 @@ h2 {
   border: none;
 }
 
-.main-button:hover {
+.primary-button:hover {
   background: darkgreen;
 }
 
@@ -41,6 +41,7 @@ h2 {
   border-radius: 30px;
   border: solid 2px rgb(121, 119, 119);
   margin: 6px;
+
 }
 
 .secondary-button:hover {
@@ -57,7 +58,7 @@ nav {
   justify-content: space-between;
 }
 
-nav .navbar-button {
+nav .nav-button {
   color: forestgreen;
   background-color: rgb(255, 255, 255);
   font-size: 20px;
@@ -67,7 +68,7 @@ nav .navbar-button {
   margin: 10px;
 }
 
-nav .navbar-button:disabled {
+nav .nav-button:disabled {
   background-color: rgb(181, 180, 180);
   color: lightgreen;
 }
@@ -82,8 +83,7 @@ nav .logo-container .logo {
 }
 
 /*-------- Landing page --------*/
-
-.cover {
+.overlay {
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -94,12 +94,11 @@ nav .logo-container .logo {
   ), url('pictures/students.jpg')
 }
 
-.landingpage {
+.home {
   margin-top: 30vh;
 }
 
 /*-------- Auth --------*/
-
 .auth {
   position: absolute;
   left: 0;
@@ -130,17 +129,32 @@ nav .logo-container .logo {
   font-size: 17px;
 }
 
-/*-------- Complete profile form --------*/
-.signup {
+/*-------- Verification --------*/
+.verify-email-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+}
+
+.verification-message {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/*-------- Onboarding Page --------*/
+.onboarding {
   border-top: solid 1px rgb(213, 213, 213);
 }
 
-.signup form {
+.onboarding form {
   display: flex;
   justify-content: center;
 }
 
-.signup form section {
+.onboarding form section {
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -148,7 +162,7 @@ nav .logo-container .logo {
   text-align: start;
 }
 
-.signup form input {
+.onboarding form input {
   padding: 15px 30px;
   margin: 10px 0;
   font-size: 15px;
@@ -156,26 +170,26 @@ nav .logo-container .logo {
   border-radius: 10px;
 }
 
-.signup form label {
+.onboarding form label {
   margin: 10px 0;
 }
 
-.signup form .multiple-input-container {
+.onboarding form .multiple-input-container {
   display: flex;
   flex-direction: row;
 }
 
-.signup form input::-webkit-outer-spin-button,
-.signup form input::-webkit-inner-spin-button {
+.onboarding form input::-webkit-outer-spin-button,
+.onboarding form input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-.signup form .multiple-input-container input {
+.onboarding form .multiple-input-container input {
   margin-right: 10px;
 }
 
-.signup form .multiple-input-container label {
+.onboarding form .multiple-input-container label {
   padding: 10px;
   border: solid 2px rgb(144, 144, 144);
   border-radius: 10px;
@@ -183,37 +197,37 @@ nav .logo-container .logo {
   margin-right: 10px;
 }
 
-.signup form input[type=radio] {
+.onboarding form input[type=radio] {
   display: none;
 }
 
-.signup form input[type=number] {
+.onboarding form input[type=number] {
   width: 10%;
 }
 
-.signup form input[type=radio]:checked + label {
+.onboarding form input[type=radio]:checked + label {
   border: solid forestgreen;
 }
 
-.signup form input[type=submit]:hover {
+.onboarding form input[type=submit]:hover {
   background-color: rgb(235, 235, 235);
 }
 
-.signup form input[type=submit]:active {
+.onboarding form input[type=submit]:active {
   background-color: lightgreen;
 }
 
-.signup form .pic-container img {
+.onboarding form .photo-container img {
   width: 100%
 }
 
 /*-------- Dashboard --------*/
-.dash {
+.dashboard {
   display: flex;
   justify-content: space-between;
 }
 
-.dash .swipe-container {
+.dashboard .swipe-container {
   width: 70%;
   display: flex;
   flex-direction: column;
@@ -226,7 +240,7 @@ nav .logo-container .logo {
   position: absolute;
 }
 
-.dash .card-container {
+.dashboard .card-container {
   width: 400px;
   height: 650px;
 }
@@ -271,8 +285,128 @@ nav .logo-container .logo {
   color: white;
 }
 
-.dash .swipe-info {
+.dashboard .swipe-info {
   position: absolute;
-  bottom: 0;
+  bottom: -25px;
   padding: 10px;
 }
+
+/*-------- Chat Container --------*/
+.chat-container {
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+  rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  width: 30%;
+  text-align: left;
+  z-index: 1;
+}
+
+.chat-container .chat-container-header {
+  background: forestgreen;
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-container .option {
+  border: none;
+  background-color: rgb(255, 255, 255);
+  border-bottom: solid forestgreen;
+  font-size: 20px;
+  margin: 2px;
+  padding: 10px;
+}
+
+.chat-container .option:disabled {
+  border-bottom: solid 4px rgb(187, 187, 187);
+}
+
+.chat-container .profile,
+.chat-container .log-out-icon {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  color: rgb(255, 255, 255);
+}
+
+.img-container {
+  height: 30px;
+  width: 30px;
+  border-radius: 15px;
+  overflow: hidden;
+  margin: 10px;
+}
+
+.img-container img {
+  width: 100%;
+}
+
+/*-------- Chat Display --------*/
+.chat-display,
+.matches-display {
+  padding: 20px;
+  height: 60vh;
+  overflow-y: auto;
+}
+
+/*-------- Chat Input --------*/
+.chat-input {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.blockuser {
+  bottom: 5px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -2,8 +2,7 @@ import mainLogo from "../pictures/mainlogo.png";
 import mainLogo1 from "../pictures/mainlogo1.png"
 
 
-const Navbar = ({authToken, minimal, setShowModal, showModal, setIsSignUp}) => {
-
+const Navbar = ({ authToken, minimal, setShowModal, showModal, setIsSignUp, errorMessage }) => {
     const handleClick = () => {
         setShowModal(true);
         setIsSignUp(false);

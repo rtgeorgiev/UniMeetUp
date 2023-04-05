@@ -1,11 +1,11 @@
-import Navbar from "../components/Navbar";
-import {useState} from "react";
-import {useCookies} from "react-cookie";
-import {useNavigate} from "react-router-dom";
-import axios from "axios";
+import Navbar from '../components/Navbar'
+import {useState} from 'react'
+import {useCookies} from 'react-cookie'
+import {useNavigate} from 'react-router-dom'
+import axios from 'axios'
 
 const Onboarding = () => {
-    const [cookies] = useCookies(null)
+    const [cookies, setCookie, removeCookie] = useCookies(null)
     const [formData, setFormData] = useState({
         user_id: cookies.UserId,
         first_name: "",
@@ -27,13 +27,13 @@ const Onboarding = () => {
     let navigate = useNavigate()
 
     const handleSubmit = async (e) => {
-        console.log("submitted")
+        console.log('submitted')
         e.preventDefault()
         try {
-            const response = await axios.put("http://localhost:8000/user", {formData})
+            const response = await axios.put('http://localhost:8000/user', {formData})
             console.log(response)
             const success = response.status === 200
-            if (success) navigate("/dashboard")
+            if (success) navigate('/dashboard')
         } catch (err) {
             console.log(err)
         }
@@ -41,7 +41,7 @@ const Onboarding = () => {
     }
 
     const handleChange = (e) => {
-        console.log("e", e)
+        console.log('e', e)
         const value = e.target.type === "checkbox" ? e.target.checked : e.target.value
         const name = e.target.name
 
@@ -60,7 +60,7 @@ const Onboarding = () => {
                 showModal={false}
             />
 
-            <div className="signup">
+            <div className="onboarding">
                 <h2>CREATE ACCOUNT</h2>
 
                 <form onSubmit={handleSubmit}>
@@ -68,7 +68,7 @@ const Onboarding = () => {
                         <label htmlFor="first_name">First Name</label>
                         <input
                             id="first_name"
-                            type="text"
+                            type='text'
                             name="first_name"
                             placeholder="First Name"
                             required={true}
@@ -79,7 +79,7 @@ const Onboarding = () => {
                         <label htmlFor="university">University</label>
                         <input
                             id="university"
-                            type="text"
+                            type='text'
                             name="university"
                             placeholder="University"
                             required={true}
@@ -90,7 +90,7 @@ const Onboarding = () => {
                         <label htmlFor="year_of_study">Year of Study</label>
                         <input
                             id="year_of_study"
-                            type="text"
+                            type='text'
                             name="year_of_study"
                             placeholder="Year of Study"
                             required={true}
@@ -101,7 +101,7 @@ const Onboarding = () => {
                         <label htmlFor="course">Course</label>
                         <input
                             id="course"
-                            type="text"
+                            type='text'
                             name="course"
                             placeholder="Course"
                             required={true}
@@ -240,7 +240,7 @@ const Onboarding = () => {
                             onChange={handleChange}
                             required={true}
                         />
-                        <div className="pic-container">
+                        <div className="photo-container">
                             {formData.url && <img src={formData.url} alt="profile pic preview"/>}
                         </div>
 

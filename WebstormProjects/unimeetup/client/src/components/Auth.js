@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
+import axios from 'axios'
 
 
 const Auth = ({ setShowModal,  isSignUp, errorMessage }) => {
@@ -11,7 +11,7 @@ const Auth = ({ setShowModal,  isSignUp, errorMessage }) => {
     const [confirmPassword, setConfirmPassword] = useState(null)
     // State variable to hold any errors during authentication
     const [error, setError] = useState(null)
-    // Hook to manage cookies.
+    // Hook to manage cookies
     const [ cookies, setCookie, removeCookie ] = useCookies(null)
 
     // Hook to navigate to different pages
@@ -25,7 +25,7 @@ const Auth = ({ setShowModal,  isSignUp, errorMessage }) => {
         setShowModal(false);
     }
 
-    // Function to handle authentication form submission.
+    // Function to handle authentication form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -77,7 +77,7 @@ const Auth = ({ setShowModal,  isSignUp, errorMessage }) => {
                     id="email"
                     name="email"
                     placeholder="email"
-                    //pattern="^[^@\s]+@[^\s.]+\.ac\.uk$"
+                    pattern="^[^@\s]+@[^\s.]+\.ac\.uk$" // only allow valid university email addresses
                     required={true}
                     onChange={(e) => {
                         setEmail(e.target.value);
