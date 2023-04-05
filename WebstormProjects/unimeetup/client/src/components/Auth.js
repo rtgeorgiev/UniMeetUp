@@ -12,7 +12,7 @@ const Auth = ({ setShowModal,  isSignUp, errorMessage }) => {
     // State variable to hold any errors during authentication
     const [error, setError] = useState(null)
     // Hook to manage cookies.
-    const [ setCookie ] = useCookies(null)
+    const [ cookies, setCookie, removeCookie ] = useCookies(null)
 
     // Hook to navigate to different pages
     let navigate = useNavigate()
@@ -77,7 +77,7 @@ const Auth = ({ setShowModal,  isSignUp, errorMessage }) => {
                     id="email"
                     name="email"
                     placeholder="email"
-                    pattern="^[^@\s]+@[^\s.]+\.ac\.uk$"
+                    //pattern="^[^@\s]+@[^\s.]+\.ac\.uk$"
                     required={true}
                     onChange={(e) => {
                         setEmail(e.target.value);

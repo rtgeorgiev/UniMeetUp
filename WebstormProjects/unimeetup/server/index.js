@@ -1,3 +1,4 @@
+require('dotenv').config();
 const PORT = 8000
 const uri = 'mongodb+srv://rtgeorgiev:mypassword@Cluster0.hkj2v1s.mongodb.net/?retryWrites=true&w=majority'
 const AWS = require('aws-sdk')
@@ -29,7 +30,7 @@ const sendVerificationEmail = async (email, verificationToken) => {
                 Data: 'Verify your email'
             }
         },
-        Source: myemail,
+        Source: email,
         ReplyToAddresses: [myemail]
     }
 
@@ -184,9 +185,9 @@ app.post('/login', async (req, res) => {
                 expiresIn: 60 * 24
             })
             res.status(201).json({token, userId: user.user_id})
+        } else {
+            res.status(400).json('Invalid Credentials')
         }
-
-        res.status(400).json('Invalid Credentials')
 
     } catch (err) {
         console.log(err)
@@ -358,5 +359,46 @@ app.post('/message', async (req, res) => {
         await client.close()
     }
 })
+
+app.post('/block', async (req, res) => {
+    const client = new MongoClient(uri)
+    const blockingUserId = req.body.blockingUserId
+    const blockedUserId = req.body.blockedUserId
+
+    try {
+        await client.connect()
+        const database = client.db('app-data')
+        const blockedUsers = database.collection('blockedUsers')
+
+        const insertedBlockedUser = await blockedUsers.insertOne({
+            blockingUserId,
+            blockedUserId,
+            timestamp: new Date().toISOString(),
+        })
+
+        res.send(insertedBlockedUser)
+    } finally {
+        await client.close()
+    }
+})
+
+app.get('/blocked', async (req, res) => {
+    const { blockingUserId } = req.query;
+    const client = new MongoClient(uri);
+
+    try {
+        await client.connect();
+        const database = client.db('app-data');
+        const blockedUsers = database.collection('blockedUsers');
+
+        const query = { blockingUserId: blockingUserId };
+        const blockedUserDocs = await blockedUsers.find(query).toArray();
+        const blockedUserIds = blockedUserDocs.map(doc => doc.blockedUserId);
+
+        res.send(blockedUserIds);
+    } finally {
+        await client.close();
+    }
+});
 
 app.listen(PORT, () => console.log('server running on PORT ' + PORT))

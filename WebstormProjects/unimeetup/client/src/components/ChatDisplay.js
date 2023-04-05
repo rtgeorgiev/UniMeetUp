@@ -1,36 +1,81 @@
-import { useState } from 'react'
+import Chat from './Chat'
+import ChatInput from './ChatInput'
 import axios from 'axios'
+import {useState, useEffect} from "react"
 
-const ChatInput = ({ user, clickedUser, getUserMessages, getClickedUsersMessages }) => {
-    const [textArea, setTextArea] = useState("")
+const ChatDisplay = ({ user , clickedUser }) => {
+    // Store the user IDs of the current user and the clicked user in variables
     const userId = user?.user_id
     const clickedUserId = clickedUser?.user_id
+    // Use state to keep track of the messages sent between the two users
+    const [usersMessages, setUsersMessages] = useState(null)
+    const [clickedUsersMessages, setClickedUsersMessages] = useState(null)
 
-    const addMessage = async () => {
-        const message = {
-            timestamp: new Date().toISOString(),
-            from_userId: userId,
-            to_userId: clickedUserId,
-            message: textArea
-        }
-
+    // Get messages sent between the two users
+    const getUsersMessages = async () => {
         try {
-            await axios.post('http://localhost:8000/message', { message })
-            getUserMessages()
-            getClickedUsersMessages()
-            setTextArea("")
+            const response = await axios.get('http://localhost:8000/messages', {
+                params: { userId: userId, correspondingUserId: clickedUserId}
+            })
+            setUsersMessages(response.data)
         } catch (error) {
             console.log(error)
         }
     }
 
+    const getClickedUsersMessages = async () => {
+        try {
+            const response = await axios.get('http://localhost:8000/messages', {
+                params: { userId: clickedUserId , correspondingUserId: userId}
+            })
+            setClickedUsersMessages(response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
+    // Use useEffect to run the above functions when the component mounts
+    useEffect(() => {
+        getUsersMessages()
+        getClickedUsersMessages()
+    }, [])
+
+    // Initialize an empty array to store formatted messages
+    const messages = []
+
+    // Iterate over the messages sent by the current user and format them
+    usersMessages?.forEach(message => {
+        const formattedMessage = {}
+        formattedMessage['name'] = user?.first_name
+        formattedMessage['img'] = user?.url
+        formattedMessage['message'] = message.message
+        formattedMessage['timestamp'] = message.timestamp
+        messages.push(formattedMessage)
+    })
+
+    // Iterate over the messages sent by the clicked user and format them
+    clickedUsersMessages?.forEach(message => {
+        const formattedMessage = {}
+        formattedMessage['name'] = clickedUser?.first_name
+        formattedMessage['img'] = clickedUser?.url
+        formattedMessage['message'] = message.message
+        formattedMessage['timestamp'] = message.timestamp
+        messages.push(formattedMessage)
+    })
+
+    // Sort the messages in descending order based on timestamp
+    const descendingOrderMessages = messages?.sort((a,b) => a.timestamp.localeCompare(b.timestamp))
+
+    // Render the Chat and ChatInput components with the formatted messages and user information
     return (
-        <div className="chat-input">
-            <textarea value={textArea} onChange={(e) => setTextArea(e.target.value)}/>
-            <button className="secondary-button" onClick={addMessage}>Submit</button>
-        </div>
+        <>
+            <Chat descendingOrderMessages={descendingOrderMessages}/>
+            <ChatInput
+                user={user}
+                clickedUser={clickedUser} getUserMessages={getUsersMessages} getClickedUsersMessages={getClickedUsersMessages}/>
+        </>
     )
+
 }
 
-export default ChatInput
+export default ChatDisplay
