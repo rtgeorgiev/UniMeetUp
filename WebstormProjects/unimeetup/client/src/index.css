@@ -221,6 +221,61 @@ nav .logo-container .logo {
   width: 100%
 }
 
+/*-------- Edit Profile --------*/
+.editprofile {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f7f7f7;
+}
+
+.editprofile h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.editprofile form {
+  display: flex;
+  flex-direction: column;
+}
+
+.editprofile label {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.editprofile input[type="text"],
+.editprofile textarea {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+
+.editprofile textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+.editprofile button {
+  margin: 6px 3px;
+}
+
+.editprofile button[type="submit"],
+.editprofile button[type="button"] {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  color: #fff;
+  background-color: green;
+  cursor: pointer;
+}
+
+.editprofile button[type="submit"]:hover,
+.editprofile button[type="button"]:hover {
+  background-color: forestgreen;
+}
 /*-------- Dashboard --------*/
 .dashboard {
   display: flex;
