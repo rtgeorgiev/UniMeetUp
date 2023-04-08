@@ -314,14 +314,50 @@ app.put('/user', async (req, res) => {
             },
         }
 
-        const insertedUser = await users.updateOne(query, updateDocument)
+        const options = { returnOriginal: false }
 
-        res.json(insertedUser)
+        const updatedUser = await users.findOneAndUpdate(query, updateDocument, options)
+
+        res.json(updatedUser.value)
 
     } finally {
         await client.close()
     }
 })
+
+// Edit Profile
+app.put('/user/:id', async (req, res) => {
+    const client = new MongoClient(uri);
+    const { id } = req.params;
+    const { first_name, course, year_of_study, about } = req.body;
+
+    try {
+
+        await client.connect();
+        const database = client.db('app-data');
+        const users = database.collection('users');
+
+        const filter = { user_id: id };
+        const update = {
+            $set: {
+                first_name,
+                course,
+                year_of_study,
+                about,
+            },
+        };
+        const options = { returnOriginal: false };
+
+        const result = await users.findOneAndUpdate(filter, update, options);
+
+        res.json(result.value);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send('Server error');
+    } finally {
+        await client.close();
+    }
+});
 
 // Retrieve message from the database based on sender and receiver
 app.get('/messages', async (req, res) => {

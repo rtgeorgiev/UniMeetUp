@@ -59,11 +59,13 @@ const Auth = ({ setShowModal,  isSignUp, errorMessage }) => {
             // Reload the page to update the state of the app
             window.location.reload();
         } catch (error) {
-            console.log(error);
+            if (error.response && error.response.status === 409) {
+                setError("Email already exists. Please use a different email.");
+            } else {
+                console.log(error);
+            }
         }
     };
-
-
 
     return (
         <div className="auth">
@@ -77,7 +79,7 @@ const Auth = ({ setShowModal,  isSignUp, errorMessage }) => {
                     id="email"
                     name="email"
                     placeholder="email"
-                    pattern="^[^@\s]+@[^\s.]+\.ac\.uk$" // only allow valid university email addresses
+                    //pattern="^[^@\s]+@[^\s.]+\.ac\.uk$" // only allow valid university email addresses
                     required={true}
                     onChange={(e) => {
                         setEmail(e.target.value);
