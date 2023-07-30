@@ -1,9 +1,3 @@
-UniMeetUp allows students to easily find and communicate with other students who share similar 
-preferences and university experience. Students can find 
-new people and view a summary of their profile including university, course, year of study, 
-and interests and connect with them on a mutual-like basis achieved through a matching 
-algorithm. Communication is achieved via instant messaging.
-
 Instructions for hosting the web application locally:
 
 1.	Unzip Unimeetup.zip. The web application consists of two main directories:
