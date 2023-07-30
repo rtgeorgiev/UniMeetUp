@@ -1,6 +1,4 @@
 require('dotenv').config();
-const PORT = 8000
-const uri = 'mongodb+srv://rtgeorgiev:mypassword@Cluster0.hkj2v1s.mongodb.net/?retryWrites=true&w=majority'
 const AWS = require('aws-sdk')
 const nodemailer = require('nodemailer')
 const { v4: uuidv4 } = require('uuid')
@@ -9,6 +7,8 @@ const jwt = require('jsonwebtoken')
 const express = require('express')
 const cors = require('cors')
 const MongoClient = require('mongodb').MongoClient
+const PORT = process.env.PORT
+const uri = process.env.DB_URI
 const clienturl = process.env.CLIENT_URL
 const accessKey = process.env.ACCESS_KEY_ID
 const secretKey = process.env.SECRET_ACCESS_KEY
